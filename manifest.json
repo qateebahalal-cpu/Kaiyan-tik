@@ -1,0 +1,38 @@
+{
+  "name": "شات برو v3.0.0",
+  "short_name": "شات برو",
+  "description": "منصة المحادثات العشوائية الاحترافية",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#00d4ff",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "social",
+    "communication"
+  ],
+  "shortcuts": [
+    {
+      "name": "محادثة جديدة",
+      "url": "/index.html#chat",
+      "description": "ابدأ محادثة عشوائية جديدة"
+    }
+  ],
+  "version": "3.0.0"
+}

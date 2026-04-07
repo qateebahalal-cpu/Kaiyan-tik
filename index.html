@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>شات برو | محادثات عشوائية</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="description" content="شات برو - منصة المحادثات العشوائية الاحترافية 2026" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/advanced.css" />
+  <link rel="stylesheet" href="css/features.css" />
+  <link rel="stylesheet" href="css/newfeatures.css" />
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash" class="splash">
+  <div class="splash-bg">
+    <div class="splash-orb orb1"></div>
+    <div class="splash-orb orb2"></div>
+  </div>
+  <div class="splash-content">
+    <div class="splash-logo">
+      <div class="logo-ring ring1"></div>
+      <div class="logo-ring ring2"></div>
+      <div class="logo-ring ring3"></div>
+      <i class="fa-solid fa-comments logo-icon"></i>
+    </div>
+    <h1 class="splash-title">شات <span>برو</span></h1>
+    <p class="splash-sub">محادثات عشوائية بلا حدود · 2026</p>
+    <div class="splash-loader"><div class="loader-bar"></div></div>
+    <p class="splash-version">v 3.0.0</p>
+  </div>
+</div>
+
+<!-- SETUP -->
+<div id="setup-screen" class="screen hidden">
+  <div class="setup-bg">
+    <div class="particle" style="--x:10%;--y:20%;--d:4s"></div>
+    <div class="particle" style="--x:80%;--y:60%;--d:6s"></div>
+    <div class="particle" style="--x:50%;--y:80%;--d:5s"></div>
+    <div class="particle" style="--x:30%;--y:40%;--d:7s"></div>
+    <div class="particle" style="--x:70%;--y:15%;--d:3s"></div>
+  </div>
+  <div class="setup-steps-bar">
+    <div class="step-dot active" id="sdot1"></div>
+    <div class="step-line"></div>
+    <div class="step-dot" id="sdot2"></div>
+    <div class="step-line"></div>
+    <div class="step-dot" id="sdot3"></div>
+  </div>
+  <!-- Step 1 -->
+  <div class="setup-card" id="setup-step-1">
+    <div class="setup-logo-wrap"><i class="fa-solid fa-comments"></i><span>شات برو</span></div>
+    <h2>أهلاً بك! 👋</h2>
+    <p>لنبدأ بإعداد ملفك الشخصي</p>
+    <div class="form-group">
+      <label><i class="fa-solid fa-user"></i> الاسم المستعار</label>
+      <input type="text" id="username-input" placeholder="اكتب اسمك..." maxlength="20" autocomplete="off" />
+    </div>
+    <div class="form-group">
+      <label><i class="fa-solid fa-venus-mars"></i> الجنس</label>
+      <div class="gender-btns">
+        <button class="gender-btn active" data-gender="male"><i class="fa-solid fa-mars"></i> ذكر</button>
+        <button class="gender-btn" data-gender="female"><i class="fa-solid fa-venus"></i> أنثى</button>
+        <button class="gender-btn" data-gender="other"><i class="fa-solid fa-genderless"></i> آخر</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><i class="fa-solid fa-cake-candles"></i> الفئة العمرية</label>
+      <div class="age-btns">
+        <button class="age-btn active" data-age="18-24">18-24</button>
+        <button class="age-btn" data-age="25-34">25-34</button>
+        <button class="age-btn" data-age="35+">35+</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><i class="fa-solid fa-language"></i> اللغة المفضلة</label>
+      <select id="lang-select">
+        <option value="ar">🇾🇪 العربية</option>
+        <option value="en">🌍 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+      </select>
+    </div>
+    <button class="btn-primary" id="next-step-btn">التالي <i class="fa-solid fa-arrow-left"></i></button>
+  </div>
+  <!-- Step 2 -->
+  <div class="setup-card hidden" id="setup-step-2">
+    <h2>اهتماماتك 🎯</h2>
+    <p>اختر ما يثير اهتمامك</p>
+    <div class="interests-grid">
+      <span class="interest-tag" data-tag="موسيقى"><i class="fa-solid fa-music"></i> موسيقى</span>
+      <span class="interest-tag" data-tag="رياضة"><i class="fa-solid fa-futbol"></i> رياضة</span>
+      <span class="interest-tag" data-tag="تقنية"><i class="fa-solid fa-laptop-code"></i> تقنية</span>
+      <span class="interest-tag" data-tag="أفلام"><i class="fa-solid fa-film"></i> أفلام</span>
+      <span class="interest-tag" data-tag="ألعاب"><i class="fa-solid fa-gamepad"></i> ألعاب</span>
+      <span class="interest-tag" data-tag="سفر"><i class="fa-solid fa-plane"></i> سفر</span>
+      <span class="interest-tag" data-tag="طبخ"><i class="fa-solid fa-utensils"></i> طبخ</span>
+      <span class="interest-tag" data-tag="فن"><i class="fa-solid fa-palette"></i> فن</span>
+      <span class="interest-tag" data-tag="كتب"><i class="fa-solid fa-book"></i> كتب</span>
+      <span class="interest-tag" data-tag="صحة"><i class="fa-solid fa-heart-pulse"></i> صحة</span>
+      <span class="interest-tag" data-tag="تعليم"><i class="fa-solid fa-graduation-cap"></i> تعليم</span>
+      <span class="interest-tag" data-tag="ترفيه"><i class="fa-solid fa-star"></i> ترفيه</span>
+    </div>
+    <div class="setup-nav">
+      <button class="btn-outline" id="prev-step-btn"><i class="fa-solid fa-arrow-right"></i> السابق</button>
+      <button class="btn-primary" id="next-step-2-btn" style="flex:1">التالي <i class="fa-solid fa-arrow-left"></i></button>
+    </div>
+  </div>
+  <!-- Step 3 -->
+  <div class="setup-card hidden" id="setup-step-3">
+    <h2>قواعد المجتمع 🛡️</h2>
+    <div class="rules-list">
+      <div class="rule-item"><span class="rule-icon">🔞</span><span>يجب أن يكون عمرك 18 سنة أو أكثر</span></div>
+      <div class="rule-item"><span class="rule-icon">🤝</span><span>احترم الآخرين وكن لطيفاً دائماً</span></div>
+      <div class="rule-item"><span class="rule-icon">🚫</span><span>لا للمحتوى المسيء أو غير اللائق</span></div>
+      <div class="rule-item"><span class="rule-icon">🔒</span><span>لا تشارك معلوماتك الشخصية الحساسة</span></div>
+      <div class="rule-item"><span class="rule-icon">🛡️</span><span>يمكنك الإبلاغ عن أي مخالفة في أي وقت</span></div>
+    </div>
+    <label class="accept-check">
+      <input type="checkbox" id="accept-rules" />
+      <span class="checkmark"></span>
+      أوافق على هذه القواعد
+    </label>
+    <div class="setup-nav">
+      <button class="btn-outline" id="prev-step-2-btn"><i class="fa-solid fa-arrow-right"></i> السابق</button>
+      <button class="btn-primary" id="start-btn" style="flex:1" disabled>
+        <i class="fa-solid fa-rocket"></i> ابدأ الآن!
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="app hidden">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="app-brand"><i class="fa-solid fa-comments"></i><span>شات برو</span></div>
+      <button class="sidebar-close" id="sidebar-close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="user-card">
+      <div class="user-avatar-wrap">
+        <div class="user-avatar" id="sidebar-avatar"><i class="fa-solid fa-user"></i></div>
+        <span class="online-dot"></span>
+      </div>
+      <div class="user-info">
+        <span class="user-name" id="sidebar-name">أنت</span>
+        <span class="user-mood" id="user-mood-display">😊 بخير</span>
+      </div>
+      <button class="edit-profile-btn" id="edit-profile-btn" title="تعديل"><i class="fa-solid fa-pen"></i></button>
+    </div>
+    <div class="mood-bar">
+      <span class="mood-opt active" data-mood="😊 بخير">😊</span>
+      <span class="mood-opt" data-mood="🔥 متحمس">🔥</span>
+      <span class="mood-opt" data-mood="😴 متعب">😴</span>
+      <span class="mood-opt" data-mood="🎭 مرح">🎭</span>
+      <span class="mood-opt" data-mood="💭 مفكر">💭</span>
+      <span class="mood-opt" data-mood="🎵 موسيقى">🎵</span>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-item"><span class="stat-val" id="stat-chats">0</span><span class="stat-lbl">محادثات</span></div>
+      <div class="stat-item"><span class="stat-val" id="stat-msgs">0</span><span class="stat-lbl">رسائل</span></div>
+      <div class="stat-item"><span class="stat-val" id="stat-online">--</span><span class="stat-lbl">متصل</span></div>
+    </div>
+    <div class="level-bar-wrap">
+      <span id="level-badge">🌱 مبتدئ</span>
+      <div class="xp-bar"><div id="xp-bar-fill" style="width:0%"></div></div>
+      <span id="xp-text">0 نقطة</span>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-panel="chat"><i class="fa-solid fa-comments"></i><span>المحادثة</span></button>
+      <button class="nav-item" data-panel="friends"><i class="fa-solid fa-user-group"></i><span>الأصدقاء</span><span class="badge hidden" id="friends-badge">0</span></button>
+      <button class="nav-item" data-panel="history"><i class="fa-solid fa-clock-rotate-left"></i><span>السجل</span></button>
+      <button class="nav-item" data-panel="notifications"><i class="fa-solid fa-bell"></i><span>الإشعارات</span><span class="badge hidden" id="notif-badge">0</span></button>
+      <button class="nav-item" data-panel="achievements"><i class="fa-solid fa-trophy"></i><span>الإنجازات</span></button>
+      <button class="nav-item" data-panel="rooms"><i class="fa-solid fa-door-open"></i><span>الغرف</span><span class="rooms-live-count">LIVE</span></button>
+      <button class="nav-item" data-panel="settings"><i class="fa-solid fa-gear"></i><span>الإعدادات</span></button>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn-danger-outline" id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> خروج</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <header class="topbar">
+      <button class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="topbar-title" id="topbar-title"><i class="fa-solid fa-comments"></i><span>محادثة عشوائية</span></div>
+      <div class="topbar-actions">
+        <div class="online-indicator">
+          <span class="pulse-dot"></span>
+          <span id="online-count">--</span> متصل
+        </div>
+        <button class="icon-btn hidden" id="report-btn" title="إبلاغ"><i class="fa-solid fa-flag"></i></button>
+        <button class="icon-btn hidden" id="export-chat-btn" title="تصدير"><i class="fa-solid fa-file-export"></i></button>
+      </div>
+    </header>
+
+    <div class="panels-container">
+      <!-- CHAT PANEL -->
+      <div class="panel active" id="panel-chat">
+        <!-- Waiting -->
+        <div class="waiting-screen" id="waiting-screen">
+          <div class="waiting-animation">
+            <div class="wave-circle c1"></div><div class="wave-circle c2"></div><div class="wave-circle c3"></div>
+            <div class="waiting-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+          </div>
+          <h3>ابحث عن شريك للمحادثة</h3>
+          <p>سيتم توصيلك مع شخص عشوائي من حول العالم</p>
+          <div class="mode-selector">
+            <button class="mode-btn active" data-mode="text"><i class="fa-solid fa-message"></i><span>نص</span></button>
+            <button class="mode-btn" data-mode="video"><i class="fa-solid fa-video"></i><span>فيديو</span></button>
+            <button class="mode-btn" data-mode="audio"><i class="fa-solid fa-microphone"></i><span>صوت</span></button>
+          </div>
+          <div class="filter-panel">
+            <div class="filter-row">
+              <label>الجنس:</label>
+              <div class="filter-btns">
+                <button class="filter-btn active" data-filter-gender="any">الجميع</button>
+                <button class="filter-btn" data-filter-gender="male">ذكر</button>
+                <button class="filter-btn" data-filter-gender="female">أنثى</button>
+              </div>
+            </div>
+            <div class="filter-row" style="margin-top:10px">
+              <label>الاهتمام:</label>
+              <select id="interest-filter" class="interest-select">
+                <option value="">أي اهتمام</option>
+                <option value="موسيقى">موسيقى</option>
+                <option value="رياضة">رياضة</option>
+                <option value="تقنية">تقنية</option>
+                <option value="ألعاب">ألعاب</option>
+                <option value="أفلام">أفلام</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-find" id="find-btn"><i class="fa-solid fa-shuffle"></i> ابدأ البحث</button>
+          <div class="quick-stats">
+            <div class="qs-item"><i class="fa-solid fa-users"></i> <span id="qs-online">--</span> متصل</div>
+            <div class="qs-item"><i class="fa-solid fa-comments"></i> <span id="qs-chats">--</span> محادثة نشطة</div>
+          </div>
+        </div>
+
+        <!-- Searching -->
+        <div class="searching-screen hidden" id="searching-screen">
+          <div class="search-anim">
+            <div class="radar-ring r1"></div><div class="radar-ring r2"></div><div class="radar-ring r3"></div>
+            <i class="fa-solid fa-satellite-dish radar-icon"></i>
+          </div>
+          <h3>جاري البحث...</h3>
+          <p class="search-hint">نبحث عن شخص يناسب اهتماماتك</p>
+          <div class="search-timer-wrap"><span id="search-timer-text">00:00</span></div>
+          <button class="btn-cancel" id="cancel-search-btn"><i class="fa-solid fa-xmark"></i> إلغاء</button>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area hidden" id="chat-area">
+          <!-- Partner Bar -->
+          <div class="partner-bar" id="partner-bar">
+            <div class="partner-avatar" id="partner-avatar">
+              <span id="partner-avatar-emoji">👤</span>
+              <span class="online-dot"></span>
+            </div>
+            <div class="partner-info">
+              <span class="partner-name" id="partner-name">شخص مجهول</span>
+              <span class="partner-typing hidden" id="partner-typing">
+                <span class="typing-dots"><span></span><span></span><span></span></span> يكتب...
+              </span>
+              <span class="partner-status" id="partner-status">متصل</span>
+            </div>
+            <div class="chat-duration-wrap">
+              <i class="fa-regular fa-clock"></i>
+              <span id="duration-text">00:00</span>
+            </div>
+            <div class="partner-actions">
+              <button class="icon-btn" id="add-friend-btn" title="إضافة صديق"><i class="fa-solid fa-user-plus"></i></button>
+              <button class="icon-btn" id="skip-btn" title="تخطي" style="color:var(--danger)"><i class="fa-solid fa-forward-fast"></i></button>
+            </div>
+          </div>
+
+          <!-- Video Area -->
+          <div class="video-area hidden" id="video-area">
+            <video id="remote-video" autoplay playsinline></video>
+            <video id="local-video" autoplay playsinline muted></video>
+            <div class="filters-strip" id="video-filters-strip"></div>
+            <div class="video-controls">
+              <button class="vid-btn" id="toggle-cam"><i class="fa-solid fa-video"></i></button>
+              <button class="vid-btn" id="toggle-mic"><i class="fa-solid fa-microphone"></i></button>
+              <button class="vid-btn" id="toggle-screen"><i class="fa-solid fa-display"></i></button>
+              <button class="vid-btn danger" id="end-call"><i class="fa-solid fa-phone-slash"></i></button>
+            </div>
+          </div>
+
+          <!-- Messages -->
+          <div class="messages-container" id="messages-container"></div>
+
+          <!-- Floating panels -->
+          <div class="emoji-picker hidden" id="emoji-picker">
+            <div class="emoji-tabs">
+              <button class="etab active" data-etab="smileys">😀</button>
+              <button class="etab" data-etab="gestures">👋</button>
+              <button class="etab" data-etab="hearts">❤️</button>
+              <button class="etab" data-etab="nature">🌹</button>
+              <button class="etab" data-etab="symbols">✅</button>
+            </div>
+            <div class="emoji-grid" id="emoji-grid"></div>
+          </div>
+
+          <div class="gif-panel hidden" id="gif-panel">
+            <div class="gif-header"><input type="text" id="gif-search" placeholder="ابحث عن GIF..."/></div>
+            <div class="gif-grid" id="gif-grid"><div class="gif-loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري التحميل...</div></div>
+          </div>
+
+          <div class="sticker-panel hidden" id="sticker-panel">
+            <div class="sticker-header"><span>ملصقات متحركة ✨</span></div>
+            <div class="sticker-grid" id="sticker-grid"></div>
+          </div>
+
+          <div class="games-panel hidden" id="games-panel">
+            <div class="games-header">🎮 ألعاب سريعة</div>
+            <button class="game-item" id="play-dice"><span class="game-icon">🎲</span><span>رمي النرد</span></button>
+            <div class="game-item">
+              <span class="game-icon">✂️</span><span>حجر ورقة مقص</span>
+              <div class="rps-choices">
+                <button class="rps-choice" data-choice="حجر 🪨">🪨</button>
+                <button class="rps-choice" data-choice="ورقة 📄">📄</button>
+                <button class="rps-choice" data-choice="مقص ✂️">✂️</button>
+              </div>
+            </div>
+            <button class="game-item" id="play-number"><span class="game-icon">🔢</span><span>خمّن الرقم</span></button>
+          </div>
+
+          <div class="theme-panel hidden" id="theme-panel">
+            <div class="theme-header">خلفية المحادثة</div>
+            <div class="theme-opts">
+              <button class="theme-opt active" data-theme="default"><span>🌑</span> افتراضي</button>
+              <button class="theme-opt" data-theme="stars"><span>⭐</span> نجوم</button>
+              <button class="theme-opt" data-theme="waves"><span>〰️</span> أمواج</button>
+              <button class="theme-opt" data-theme="sunset"><span>🌅</span> غروب</button>
+              <button class="theme-opt" data-theme="forest"><span>🌲</span> غابة</button>
+            </div>
+          </div>
+
+          <!-- Voice Indicator -->
+          <div class="voice-indicator hidden" id="voice-indicator">
+            <div class="voice-rec-anim"><span></span><span></span><span></span><span></span><span></span></div>
+            <span id="recording-time">00:00</span>
+            <span class="rec-hint">أفلت للإرسال</span>
+          </div>
+
+          <!-- Input Area -->
+          <div id="typing-suggestions-bar-inline"></div>
+          <div class="quick-replies-bar" id="quick-replies-bar"></div>
+          <div class="input-area" id="input-area">
+            <div class="input-toolbar">
+              <button class="tool-btn" id="emoji-btn" title="إيموجي"><i class="fa-regular fa-face-smile"></i></button>
+              <button class="tool-btn" id="gif-btn" title="GIF"><span class="gif-label">GIF</span></button>
+              <button class="tool-btn" id="sticker-btn" title="ملصقات"><i class="fa-solid fa-note-sticky"></i></button>
+              <button class="tool-btn" id="games-btn" title="ألعاب"><i class="fa-solid fa-gamepad"></i></button>
+              <button class="tool-btn" id="theme-btn" title="الخلفية"><i class="fa-solid fa-swatchbook"></i></button>
+              <button class="tool-btn" id="attach-btn" title="صورة"><i class="fa-solid fa-image"></i></button>
+              <button class="tool-btn secret-tool" id="secret-msg-btn" title="رسالة مشفرة"><i class="fa-solid fa-lock"></i></button>
+              <button class="tool-btn starters-tool" id="starters-btn" title="بادئات المحادثة"><i class="fa-solid fa-lightbulb"></i></button>
+              <button class="tool-btn" id="word-game-btn" title="لعبة الكلمات"><i class="fa-solid fa-spell-check"></i></button>
+              <button class="tool-btn focus-tool" id="focus-mode-btn" title="وضع التركيز"><i class="fa-solid fa-moon"></i></button>
+              <button class="tool-btn" id="mood-music-btn" title="موسيقى المزاج"><i class="fa-solid fa-music"></i></button>
+              <button class="tool-btn" id="stats-panel-btn" title="الإحصائيات"><i class="fa-solid fa-chart-bar"></i></button>
+              <button class="tool-btn voice-note-btn" id="voice-note-btn" title="رسالة صوتية (اضغط مطولاً)"><i class="fa-solid fa-microphone-lines"></i></button>
+              <input type="file" id="file-input" accept="image/*" style="display:none" />
+            </div>
+            <div class="input-row">
+              <button class="voice-btn" id="voice-btn" title="اضغط مع الاستمرار للتسجيل">
+                <i class="fa-solid fa-microphone"></i>
+              </button>
+              <div class="msg-input-wrap">
+                <textarea id="msg-input" placeholder="اكتب رسالتك..." rows="1" maxlength="1000"></textarea>
+                <span class="char-count" id="char-count">0/1000</span>
+              </div>
+              <button class="btn-send" id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disconnected -->
+        <div class="disconnected-screen hidden" id="disconnected-screen">
+          <div class="disco-icon"><i class="fa-solid fa-link-slash"></i></div>
+          <h3>انتهت المحادثة</h3>
+          <p id="disco-reason">قطع الطرف الآخر الاتصال</p>
+          <div class="disco-stats">
+            <span><i class="fa-regular fa-clock"></i> <span id="disco-duration">0</span>ث</span>
+            <span><i class="fa-solid fa-comments"></i> <span id="disco-msgs">0</span> رسالة</span>
+          </div>
+          <div class="disco-actions">
+            <button class="btn-find" id="next-btn"><i class="fa-solid fa-shuffle"></i> محادثة جديدة</button>
+            <button class="btn-outline" id="back-home-btn"><i class="fa-solid fa-house"></i> الرئيسية</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FRIENDS PANEL -->
+      <div class="panel" id="panel-friends">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-user-group"></i> الأصدقاء</h3>
+          <input type="text" class="search-input" id="friends-search" placeholder="بحث..." />
+        </div>
+        <div class="friends-list" id="friends-list">
+          <div class="empty-state"><i class="fa-solid fa-user-plus"></i><p>لا يوجد أصدقاء بعد</p><small>أضف أشخاصاً من المحادثات</small></div>
+        </div>
+      </div>
+
+      <!-- HISTORY PANEL -->
+      <div class="panel" id="panel-history">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-clock-rotate-left"></i> السجل</h3>
+          <button class="btn-sm-danger" id="clear-history-btn"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        <div class="history-list" id="history-list">
+          <div class="empty-state"><i class="fa-solid fa-inbox"></i><p>لا يوجد سجل بعد</p></div>
+        </div>
+      </div>
+
+      <!-- NOTIFICATIONS PANEL -->
+      <div class="panel" id="panel-notifications">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-bell"></i> الإشعارات</h3>
+          <button class="btn-sm-danger" id="clear-notif-btn"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        <div class="notif-list" id="notif-list">
+          <div class="empty-state"><i class="fa-regular fa-bell-slash"></i><p>لا توجد إشعارات</p></div>
+        </div>
+      </div>
+
+      <!-- ROOMS PANEL (inside panels-container) -->
+      <div class="panel hidden" id="panel-rooms-inner" style="padding:0;overflow:hidden;">
+        <div style="padding:16px 16px 0;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <h2 style="font-size:18px;font-weight:700;margin:0;">🚪 غرف الاهتمامات</h2>
+          <span style="font-size:12px;color:#10b981;">● مباشر</span>
+        </div>
+        <div style="padding:0 16px;">
+          <div class="rooms-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="rooms-search-input" placeholder="ابحث عن غرفة..." />
+          </div>
+          <div class="rooms-categories">
+            <button class="room-cat-btn active" data-cat="all">الكل</button>
+            <button class="room-cat-btn" data-cat="tech">تقنية</button>
+            <button class="room-cat-btn" data-cat="entertainment">ترفيه</button>
+            <button class="room-cat-btn" data-cat="sports">رياضة</button>
+            <button class="room-cat-btn" data-cat="lifestyle">نمط حياة</button>
+            <button class="room-cat-btn" data-cat="education">تعليم</button>
+            <button class="room-cat-btn" data-cat="fun">مرح</button>
+          </div>
+        </div>
+        <div style="overflow-y:auto;padding:0 16px 100px;">
+          <div class="rooms-grid" id="rooms-grid"></div>
+        </div>
+      </div>
+
+      <!-- ACHIEVEMENTS PANEL -->
+      <div class="panel" id="panel-achievements">
+        <div class="panel-header"><h3><i class="fa-solid fa-trophy"></i> الإنجازات</h3></div>
+        <div style="padding:0 4px">
+          <div class="achievements-stats">
+            <div class="ach-stat"><strong id="ach-points">0</strong><small>نقطة</small></div>
+            <div class="ach-stat"><strong id="ach-level">1</strong><small>المستوى</small></div>
+            <div class="ach-stat"><strong id="ach-badges">0</strong><small>شارة</small></div>
+          </div>
+          <p style="font-size:13px;color:#888;margin-bottom:10px">الشارات المكتسبة</p>
+          <div class="badges-grid" id="badges-grid"></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS PANEL -->
+      <div class="panel" id="panel-settings">
+        <div class="panel-header"><h3><i class="fa-solid fa-gear"></i> الإعدادات</h3></div>
+        <div class="settings-body">
+          <div class="setting-section">
+            <h4><i class="fa-solid fa-paintbrush"></i> المظهر</h4>
+            <div class="setting-row"><span>الوضع المظلم</span><label class="toggle-switch"><input type="checkbox" id="dark-mode-toggle" checked /><span class="toggle-slider"></span></label></div>
+            <div class="setting-row">
+              <span>لون التمييز</span>
+              <div class="color-presets">
+                <span class="color-preset active" data-color="#00d4ff" style="background:#00d4ff"></span>
+                <span class="color-preset" data-color="#ff6b6b" style="background:#ff6b6b"></span>
+                <span class="color-preset" data-color="#7c3aed" style="background:#7c3aed"></span>
+                <span class="color-preset" data-color="#10b981" style="background:#10b981"></span>
+                <span class="color-preset" data-color="#f59e0b" style="background:#f59e0b"></span>
+                <span class="color-preset" data-color="#ec4899" style="background:#ec4899"></span>
+              </div>
+            </div>
+            <div class="setting-row">
+              <span>حجم الخط</span>
+              <div class="font-size-btns">
+                <button class="fs-btn" data-size="14">ص</button>
+                <button class="fs-btn active" data-size="15">م</button>
+                <button class="fs-btn" data-size="17">ك</button>
+              </div>
+            </div>
+          </div>
+          <div class="setting-section">
+            <h4><i class="fa-solid fa-bell"></i> الإشعارات</h4>
+            <div class="setting-row"><span>صوت الرسائل</span><label class="toggle-switch"><input type="checkbox" id="sound-toggle" checked /><span class="toggle-slider"></span></label></div>
+            <div class="setting-row"><span>إشعارات المتصفح</span><label class="toggle-switch"><input type="checkbox" id="notif-toggle" /><span class="toggle-slider"></span></label></div>
+            <div class="setting-row"><span>اهتزاز (موبايل)</span><label class="toggle-switch"><input type="checkbox" id="vibrate-toggle" checked /><span class="toggle-slider"></span></label></div>
+          </div>
+          <div class="setting-section">
+            <h4><i class="fa-solid fa-shield-halved"></i> الخصوصية</h4>
+            <div class="setting-row"><span>إظهار مؤشر الكتابة</span><label class="toggle-switch"><input type="checkbox" id="typing-toggle" checked /><span class="toggle-slider"></span></label></div>
+            <div class="setting-row"><span>وضع المجهول</span><label class="toggle-switch"><input type="checkbox" id="anon-toggle" /><span class="toggle-slider"></span></label></div>
+            <div class="setting-row"><span>منع صور الغرباء</span><label class="toggle-switch"><input type="checkbox" id="block-img-toggle" /><span class="toggle-slider"></span></label></div>
+          </div>
+          <div class="setting-section">
+            <h4><i class="fa-solid fa-chart-bar"></i> الإحصائيات</h4>
+            <div class="stats-card">
+              <div class="sc-item"><i class="fa-solid fa-comments"></i><div><strong id="total-chats-stat">0</strong><small>إجمالي المحادثات</small></div></div>
+              <div class="sc-item"><i class="fa-solid fa-message"></i><div><strong id="total-msgs-stat">0</strong><small>إجمالي الرسائل</small></div></div>
+              <div class="sc-item"><i class="fa-solid fa-user-group"></i><div><strong id="total-friends-stat">0</strong><small>الأصدقاء</small></div></div>
+            </div>
+          </div>
+          <div class="setting-section">
+            <h4><i class="fa-solid fa-circle-info"></i> حول التطبيق</h4>
+            <div class="about-card">
+              <i class="fa-solid fa-comments fa-2x"></i>
+              <strong>شات برو v4.0.0</strong>
+              <small>منصة المحادثات العشوائية الاحترافية</small>
+              <small>© 2026 Ali Qateebah · اليمن</small>
+              <a href="mailto:aliqateebah@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i> aliqateebah@gmail.com</a>
+              <div class="tech-badges"><span>WebRTC</span><span>PeerJS</span><span>BroadcastChannel</span><span>PWA</span></div>
+            </div>
+          </div>
+          <div class="setting-section">
+            <h4><i class="fa-solid fa-paintbrush"></i> تخصيص متقدم</h4>
+            <button class="theme-builder-btn" id="open-theme-builder">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> منشئ الثيم المتقدم ✨
+            </button>
+          </div>
+          <button class="btn-danger-outline" id="logout-btn-2" style="margin-top:8px">
+            <i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay hidden" id="report-modal">
+  <div class="modal">
+    <div class="modal-header"><h3><i class="fa-solid fa-flag"></i> إبلاغ</h3><button class="modal-close" data-modal="report-modal"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="report-reasons">
+        <label><input type="radio" name="report-reason" value="spam" /> 📨 محتوى مزعج</label>
+        <label><input type="radio" name="report-reason" value="abuse" /> 🤬 إساءة لفظية</label>
+        <label><input type="radio" name="report-reason" value="inappropriate" /> 🔞 محتوى غير لائق</label>
+        <label><input type="radio" name="report-reason" value="harassment" /> 😰 تحرش أو إزعاج</label>
+        <label><input type="radio" name="report-reason" value="other" /> ➕ أخرى</label>
+      </div>
+      <textarea id="report-notes" placeholder="ملاحظات إضافية..." rows="3"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-danger" id="submit-report-btn"><i class="fa-solid fa-paper-plane"></i> إرسال</button>
+      <button class="btn-outline" data-modal="report-modal">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="profile-modal">
+  <div class="modal">
+    <div class="modal-header"><h3><i class="fa-solid fa-user-pen"></i> تعديل الملف الشخصي</h3><button class="modal-close" data-modal="profile-modal"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="avatar-picker">
+        <div class="avatar-preview" id="avatar-preview"><i class="fa-solid fa-user fa-2x"></i></div>
+        <div class="avatar-opts" id="avatar-opts">
+          <span class="av-opt" data-avatar="😀">😀</span><span class="av-opt" data-avatar="😎">😎</span>
+          <span class="av-opt" data-avatar="🦁">🦁</span><span class="av-opt" data-avatar="🐺">🐺</span>
+          <span class="av-opt" data-avatar="🦊">🦊</span><span class="av-opt" data-avatar="🐉">🐉</span>
+          <span class="av-opt" data-avatar="🤖">🤖</span><span class="av-opt" data-avatar="👽">👽</span>
+          <span class="av-opt" data-avatar="🦅">🦅</span><span class="av-opt" data-avatar="⚡">⚡</span>
+        </div>
+      </div>
+      <div class="form-group"><label>الاسم المستعار</label><input type="text" id="edit-username" maxlength="20" /></div>
+      <div class="form-group"><label>الجنس</label><select id="edit-gender"><option value="male">ذكر</option><option value="female">أنثى</option><option value="other">آخر</option></select></div>
+      <div class="form-group"><label>نبذة عنك</label><textarea id="edit-bio" placeholder="اكتب نبذة قصيرة..." rows="2" maxlength="100"></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn-primary" id="save-profile-btn"><i class="fa-solid fa-check"></i> حفظ</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="img-modal">
+  <div class="img-modal-inner">
+    <button class="modal-close img-close" id="img-close"><i class="fa-solid fa-xmark"></i></button>
+    <img id="img-viewer" src="" alt="صورة" />
+    <a id="img-download" download="chatpro-image.jpg" class="img-download-btn"><i class="fa-solid fa-download"></i></a>
+  </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+<div class="sidebar-overlay hidden" id="sidebar-overlay"></div>
+<div class="conn-status hidden" id="conn-status"><i class="fa-solid fa-wifi-slash"></i><span>انقطع الاتصال بالإنترنت</span></div>
+
+<!-- NEW FEATURES HTML -->
+
+<!-- =========== AI ASSISTANT FAB + PANEL =========== -->
+<button class="ai-fab" id="ai-assist-btn" title="المساعد الذكي">🤖</button>
+
+<div class="ai-panel hidden" id="ai-panel">
+  <div class="ai-header">
+    <span class="ai-header-icon">🤖</span>
+    <span class="ai-header-title">المساعد الذكي</span>
+    <button class="ai-close-btn" id="ai-close-btn"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="ai-messages" id="ai-messages"></div>
+  <div class="ai-quick-btns">
+    <button class="ai-quick-btn" data-action="joke">😄 نكتة</button>
+    <button class="ai-quick-btn" data-action="quote">✨ اقتباس</button>
+    <button class="ai-quick-btn" data-action="tip">💡 نصيحة</button>
+    <button class="ai-quick-btn" data-action="time">🕐 الوقت</button>
+  </div>
+  <div class="ai-input-row">
+    <input type="text" id="ai-input" placeholder="اسألني أي شيء..." />
+    <button class="ai-send-btn" id="ai-send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<!-- =========== FOCUS INDICATOR =========== -->
+<div class="focus-indicator hidden" id="focus-indicator">وضع التركيز مفعّل</div>
+
+<!-- =========== STATS MODAL =========== -->
+<div class="modal-overlay hidden" id="stats-modal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-chart-bar"></i> لوحة الإحصائيات</h3>
+      <button class="modal-close" data-modal="stats-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div id="stats-chart-container">
+        <p style="font-size:12px;color:#888;margin-bottom:8px">نشاطك خلال اليوم (بالساعة)</p>
+        <canvas id="stats-chart" style="width:100%;height:160px"></canvas>
+      </div>
+      <div class="msg-type-bars" style="margin-top:16px">
+        <p style="font-size:12px;color:#888;margin-bottom:10px">أنواع الرسائل المُرسلة</p>
+        <div class="type-bar-row"><div class="type-bar-label"><span>💬 نصية</span></div><div class="type-bar-track"><div class="type-bar-fill" id="type-text" style="width:0%"></div></div></div>
+        <div class="type-bar-row" style="margin-top:8px"><div class="type-bar-label"><span>🎙️ صوتية</span></div><div class="type-bar-track"><div class="type-bar-fill" id="type-voice" style="width:0%"></div></div></div>
+        <div class="type-bar-row" style="margin-top:8px"><div class="type-bar-label"><span>🖼️ صور</span></div><div class="type-bar-track"><div class="type-bar-fill" id="type-image" style="width:0%"></div></div></div>
+        <div class="type-bar-row" style="margin-top:8px"><div class="type-bar-label"><span>😄 إيموجي</span></div><div class="type-bar-track"><div class="type-bar-fill" id="type-emoji" style="width:0%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========== SECRET MESSAGE MODAL =========== -->
+<div class="modal-overlay hidden" id="secret-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🔐 رسالة مشفرة</h3>
+      <button class="modal-close" data-modal="secret-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:#888;margin-bottom:12px">ستُرسل هذه الرسالة مشفرة ولا يمكن قراءتها إلا من قِبل المستلم</p>
+      <textarea id="secret-input" placeholder="اكتب رسالتك السرية..." rows="4" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(124,58,237,0.4);border-radius:12px;padding:12px;color:#fff;font-family:'Cairo',sans-serif;font-size:14px;resize:none;outline:none;box-sizing:border-box"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="send-secret-btn"><i class="fa-solid fa-lock"></i> إرسال مشفرة</button>
+      <button class="btn-outline" data-modal="secret-modal">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- =========== CONVERSATION STARTERS MODAL =========== -->
+<div class="modal-overlay hidden" id="starters-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>💬 بادئات المحادثة</h3>
+      <button class="modal-close" data-modal="starters-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="starter-cats">
+        <button class="starter-cat active" data-cat="general">عام</button>
+        <button class="starter-cat" data-cat="fun">مرح</button>
+        <button class="starter-cat" data-cat="deep">عميق</button>
+      </div>
+      <div id="starters-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- =========== WORD GAME MODAL =========== -->
+<div class="modal-overlay hidden" id="word-game-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🎯 لعبة الكلمات</h3>
+      <button class="modal-close" data-modal="word-game-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body" style="text-align:center">
+      <div class="wg-timer-ring" id="wg-timer">30</div>
+      <p id="wg-hint" style="color:#888;font-size:13px;margin-bottom:8px"></p>
+      <div class="wg-word" id="wg-word"></div>
+      <div class="wg-input-row">
+        <input type="text" id="wg-input" placeholder="اكتب الكلمة..." />
+        <button class="btn-primary" id="wg-submit">تحقق</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========== MOOD MUSIC MODAL =========== -->
+<div class="modal-overlay hidden" id="music-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🎵 موسيقى المزاج</h3>
+      <button class="modal-close" data-modal="music-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:#888;margin-bottom:4px">اختر موسيقى تناسب مزاجك الآن</p>
+      <div class="music-tracks">
+        <button class="music-track-btn" data-track="happy"><span class="music-track-emoji">😊</span>مبهجة</button>
+        <button class="music-track-btn" data-track="calm"><span class="music-track-emoji">😌</span>هادئة</button>
+        <button class="music-track-btn" data-track="energetic"><span class="music-track-emoji">⚡</span>نشيطة</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========== PARTNER PROFILE MODAL =========== -->
+<div class="modal-overlay hidden" id="partner-profile-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-user"></i> ملف الشريك</h3>
+      <button class="modal-close" data-modal="partner-profile-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body partner-profile-card">
+      <div class="pp-avatar">👤</div>
+      <div class="pp-name" id="pp-name">مجهول</div>
+      <div style="color:#888;font-size:13px" id="pp-gender"></div>
+      <div class="pp-info-row">
+        <div class="pp-stat"><strong id="pp-duration">00:00</strong><small>مدة المحادثة</small></div>
+        <div class="pp-stat"><strong id="pp-msgs">0</strong><small>رسالة</small></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="pp-add-friend"><i class="fa-solid fa-user-plus"></i> إضافة صديق</button>
+      <button class="btn-outline" data-modal="partner-profile-modal">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- =========== ACHIEVEMENTS PANEL (added to sidebar nav) =========== -->
+
+
+<!-- ========== VOICE RECORD PANEL ========== -->
+<div class="voice-record-panel" id="voice-record-panel">
+  <div class="rec-pulse"></div>
+  <span class="rec-label">تسجيل...</span>
+  <span class="rec-timer" id="voice-rec-timer">00:00</span>
+  <div class="rec-live-bars">
+    <div class="rec-live-bar"></div>
+    <div class="rec-live-bar"></div>
+    <div class="rec-live-bar"></div>
+    <div class="rec-live-bar"></div>
+    <div class="rec-live-bar"></div>
+  </div>
+  <button class="rec-cancel-btn" onclick="cancelRecording()"><i class="fa-solid fa-xmark"></i> إلغاء</button>
+</div>
+
+<!-- ========== ICE BREAKER CHALLENGES FAB ========== -->
+<button class="challenge-fab" id="challenge-fab" title="تحديات كاسر الجليد">🎯</button>
+
+<div class="challenge-panel" id="challenge-panel">
+  <div class="challenge-panel-header">
+    <h3>🎯 تحديات كاسر الجليد</h3>
+    <button class="challenge-close" id="challenge-close"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="challenge-card">
+    <div class="challenge-emoji" id="challenge-emoji">🎯</div>
+    <span class="challenge-type-badge question" id="challenge-type-badge">سؤال</span>
+    <div class="challenge-text" id="challenge-text">جاري التحميل...</div>
+  </div>
+  <div class="challenge-actions">
+    <button class="challenge-shuffle-btn" id="challenge-shuffle"><i class="fa-solid fa-shuffle"></i> تحدي آخر</button>
+    <button class="challenge-send-btn" id="challenge-send" title="إرسال للمحادثة"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<!-- ========== INTEREST ROOMS PANEL (in sidebar) ========== -->
+<div class="panel hidden" id="panel-rooms" style="padding:0;overflow:hidden;height:100%;">
+  <div style="padding:16px 16px 0;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+    <h2 style="font-size:18px;font-weight:700;margin:0;">🚪 غرف الاهتمامات</h2>
+    <span style="font-size:12px;color:#888;">مباشر الآن</span>
+  </div>
+  <div style="padding:0 16px;">
+    <div class="rooms-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="rooms-search-input" placeholder="ابحث عن غرفة..." />
+    </div>
+    <div class="rooms-categories">
+      <button class="room-cat-btn active" data-cat="all">الكل</button>
+      <button class="room-cat-btn" data-cat="tech">تقنية</button>
+      <button class="room-cat-btn" data-cat="entertainment">ترفيه</button>
+      <button class="room-cat-btn" data-cat="sports">رياضة</button>
+      <button class="room-cat-btn" data-cat="lifestyle">نمط حياة</button>
+      <button class="room-cat-btn" data-cat="education">تعليم</button>
+      <button class="room-cat-btn" data-cat="fun">مرح</button>
+    </div>
+  </div>
+  <div style="overflow-y:auto;flex:1;padding:0 16px 16px;height:calc(100% - 130px);">
+    <div class="rooms-grid" id="rooms-grid"></div>
+  </div>
+</div>
+
+<!-- ========== ROOM CHAT OVERLAY ========== -->
+<div class="room-chat-overlay" id="room-chat-overlay">
+  <div class="room-chat-header">
+    <span class="room-chat-emoji" id="room-chat-emoji">🚪</span>
+    <div class="room-chat-info">
+      <h3 id="room-chat-name">غرفة</h3>
+      <small id="room-chat-count">جاري التحميل...</small>
+    </div>
+    <button class="room-close-btn" id="room-close-btn"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="room-members-bar" id="room-members-bar"></div>
+  <div class="room-messages" id="room-messages"></div>
+  <div class="room-input-area">
+    <input type="text" id="room-input" placeholder="اكتب رسالتك في الغرفة..." maxlength="300" />
+    <button class="room-send-btn" id="room-send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<!-- ========== ADVANCED THEME BUILDER ========== -->
+<div class="theme-builder-overlay" id="theme-builder-overlay">
+  <div class="theme-builder-sheet">
+    <div class="theme-builder-handle"></div>
+    <div class="theme-builder-header">
+      <h3>🎨 منشئ الثيم المتقدم</h3>
+      <button class="theme-builder-close" id="theme-builder-close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-section-title">الخلفيات الجاهزة</div>
+      <div class="tb-presets" id="tb-presets-grid"></div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-section-title">لون التمييز</div>
+      <div class="tb-color-grid" id="tb-color-swatches"></div>
+      <div class="tb-custom-color">
+        <label>لون مخصص</label>
+        <input type="color" id="tb-custom-accent" value="#00d4ff" />
+      </div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-section-title">معاينة</div>
+      <div class="tb-preview" id="tb-preview">
+        <div class="tb-preview-msgs">
+          <div class="tb-preview-msg them">مرحباً! كيف حالك؟ 👋</div>
+          <div class="tb-preview-msg me">بخير شكراً! وأنت؟ 😊</div>
+          <div class="tb-preview-msg them">الحمد لله! يوم رائع 🌟</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb-section">
+      <div class="tb-section-title">خيارات الشكل</div>
+      <div class="tb-slider-row">
+        <span class="tb-slider-label">استدارة الفقاعة</span>
+        <input type="range" class="tb-slider" id="tb-radius" min="4" max="28" value="18" />
+        <span class="tb-slider-val" id="tb-radius-val">18px</span>
+      </div>
+      <div class="tb-slider-row">
+        <span class="tb-slider-label">حجم الخط</span>
+        <input type="range" class="tb-slider" id="tb-fontsize" min="12" max="20" value="15" />
+        <span class="tb-slider-val" id="tb-fontsize-val">15px</span>
+      </div>
+      <div class="tb-toggle-row">
+        <span class="tb-toggle-label">تأثيرات حركية</span>
+        <label class="tb-toggle"><input type="checkbox" id="tb-animations" checked /><div class="tb-toggle-track"></div></label>
+      </div>
+      <div class="tb-toggle-row">
+        <span class="tb-toggle-label">وضع مضغوط</span>
+        <label class="tb-toggle"><input type="checkbox" id="tb-compact" /><div class="tb-toggle-track"></div></label>
+      </div>
+    </div>
+
+    <button class="tb-apply-btn" id="tb-apply-btn">✨ تطبيق الثيم</button>
+  </div>
+</div>
+
+<!-- ========== ANALYTICS MODAL ========== -->
+<div class="modal-overlay hidden" id="analytics-modal">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-chart-pie"></i> تحليلات المحادثة</h3>
+      <button class="modal-close" data-modal="analytics-modal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body" style="max-height:70vh;overflow-y:auto;" id="analytics-panel-content">
+      <div style="text-align:center;padding:40px;color:#888;">
+        <i class="fa-solid fa-chart-pie fa-3x" style="opacity:0.3;margin-bottom:12px;"></i>
+        <p>ابدأ محادثة لعرض التحليلات</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== VIDEO FILTERS STRIP (injected inside video-area) ========== -->
+<!-- Note: inserted dynamically by JS into .video-area -->
+
+<!-- ========== SCROLL TO BOTTOM BTN ========== -->
+<button class="scroll-to-bottom" id="scroll-to-bottom-btn">
+  <i class="fa-solid fa-angles-down"></i> رسائل جديدة
+</button>
+
+<!-- ========== TYPING SUGGESTIONS BAR ========== -->
+<div id="typing-suggestions-bar" style="padding:0 12px 4px;"></div>
+
+<script src="js/sw-register.js"></script>
+<script src="js/app.js"></script>
+<script src="js/advanced.js"></script>
+<script src="js/features.js"></script>
+<script src="js/newfeatures.js"></script>
+</body>
+</html>
